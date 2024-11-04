@@ -3,16 +3,19 @@ class Solution {
 
         Stack<Character> stack = new Stack<>();
         
-        //iterate throughs string
-        for(int i = 0; i < s.length();i++) {
-            //if character is star, remove last element in stack
-            if(s.charAt(i) == '*') {
+        //iterate through string
+
+        for(char curr : s.toCharArray()) {
+            if(curr == '*') {
+                //if character is star, remove last element in stack
                 stack.pop();
             } else {
                 //otherwise add character to stack
-                stack.push(s.charAt(i));
+                stack.push(curr);
             }
         }
+
+
         //convert stack to stringbuilder
         StringBuilder sol = new StringBuilder();
         while(!stack.isEmpty()) {
