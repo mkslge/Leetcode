@@ -10,39 +10,41 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        //carry keeps track of left overs
-        int carry = 0;
-        //make dummy node to store solution
-        ListNode dummy = new ListNode();
-        ListNode tail = dummy;
+        //dummy node to keep track of start of solution
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        int rem = 0;
+        while(l1 != null || l2 != null || rem != 0) {
+            //if they are we dont want to add anything but dont want
+            //to get a nullptr exception
+            int l1Val = l1 != null ? l1.val : 0;
+            int l2Val = l2 != null ? l2.val : 0;
+
+            //we obviously can only move the pointer forward if they
+            //aren't null
+            l1 = l1 != null ? l1.next : l1;
+            l2 = l2 != null ? l2.next : l2;
+
+            //add up the total including the remainder
+            int total = l1Val + l2Val + rem;
 
 
-        //while nothing is null and carry has something we
-        //need to keep adding
-        while(l1 != null || l2 != null || carry != 0) {
-            //add to current val list node one value
-            int currVal = 0;
-            if(l1 != null) {
-                currVal += l1.val;
-                l1 = l1.next;
-            }
-            //add to current val list two value
-            if(l2 != null) {
-                currVal += l2.val;
-                l2 = l2.next;
-            }
-            //add carry
-            currVal += carry;
-            //get new carry
-            carry = currVal / 10;
-            //get current val
-            currVal = currVal % 10;
-            //make new node and keep going
-            tail.next = new ListNode(currVal);
-            tail = tail.next;
+            //only use the last digit
+            ListNode newNode = new ListNode(total % 10); 
+            
 
+            //store the remainder for next round
+            rem = total / 10;
+
+            //save solution
+            curr.next = newNode;
+            curr = curr.next;
+            
         }
-        //return solution
+        
+
+
+
         return dummy.next;
     }
 }
